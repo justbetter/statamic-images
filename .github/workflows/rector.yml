@@ -1,0 +1,31 @@
+name: rector
+
+on: ['push', 'pull_request']
+
+jobs:
+    rector:
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: true
+            matrix:
+                php: ['8.4', '8.5']
+
+        name: Rector - P${{ matrix.php }}
+
+        defaults:
+            run:
+                working-directory: statamic-images
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+                    coverage: none
+
+            -   name: Install dependencies
+                run: composer install
+
+            -   name: Rector
+                run: composer rector
