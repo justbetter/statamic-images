@@ -13,9 +13,6 @@ jobs:
 
         name: Rector - P${{ matrix.php }}
 
-        defaults:
-            run:
-                working-directory: statamic-images
         steps:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2

@@ -13,10 +13,6 @@ jobs:
 
         name: Coverage - P${{ matrix.php }}
 
-        defaults:
-            run:
-                working-directory: statamic-images
-
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v4

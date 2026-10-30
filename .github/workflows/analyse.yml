@@ -14,10 +14,6 @@ jobs:
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }}
 
-        defaults:
-            run:
-                working-directory: statamic-images
-
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v4
