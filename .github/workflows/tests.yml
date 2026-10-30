@@ -40,7 +40,6 @@ jobs:
                 run: |
                     composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
                     composer install
-                    npm install
 
             -   name: Tests
                 run: composer test

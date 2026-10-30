@@ -16,7 +16,7 @@ jobs:
         defaults:
             run:
                 working-directory: statamic-images
-
+        steps:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
