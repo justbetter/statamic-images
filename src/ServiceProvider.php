@@ -7,7 +7,6 @@ namespace JustBetter\StatamicImages;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use JustBetter\StatamicImages\Actions\BuildPicture;
-use Override;
 
 class ServiceProvider extends BaseServiceProvider
 {

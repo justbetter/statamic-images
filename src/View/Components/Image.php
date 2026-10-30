@@ -31,6 +31,7 @@ class Image extends Component
 
         /** @var view-string $view */
         $view = 'justbetter::components.image';
+
         return view($view, [
             'image' => $this->image,
             'sizes' => $this->sizes,
