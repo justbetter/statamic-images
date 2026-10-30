@@ -13,14 +13,14 @@
                 srcset="{{ $srcset }}"
                 sizes="{{ $sizes }}"
             >
-            @endforeach
+        @endforeach
 
-            <img {{ $attributes->merge([
-                'src' => $picture->src,
-                'alt' => $image->get('alt', ''),
-                'width' => $picture->width,
-                'height' => $picture->height,
-                'loading' => 'lazy',
-            ]) }} />
-        @endif
+        <img {{ $attributes->merge([
+            'src' => $picture->src,
+            'alt' => $image->get('alt', ''),
+            'width' => $picture->width,
+            'height' => $picture->height,
+            'loading' => 'lazy',
+        ]) }} />
+    @endif
 </picture>
