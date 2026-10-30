@@ -1,0 +1,68 @@
+{
+    "name": "justbetter/statamic-images",
+    "description": "Responsive picture elements for Statamic assets",
+    "type": "package",
+    "authors": [
+        {
+            "name": "Bob Wezelman",
+            "email": "bob@justbetter.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "laravel/framework": "^13.0",
+        "statamic/cms": "^6.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.9",
+        "laravel/pint": "^1.29",
+        "orchestra/testbench": "^11.0",
+        "phpstan/phpstan-mockery": "^2.0",
+        "phpunit/phpunit": "^13.0",
+        "rector/rector": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "JustBetter\\StatamicImages\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JustBetter\\StatamicImages\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan --memory-limit=256M",
+        "style": "pint --test",
+        "quality": [
+            "@style",
+            "@analyse",
+            "@test",
+            "@coverage",
+            "@rector"
+        ],
+        "coverage": "XDEBUG_MODE=coverage php -d memory_limit=2G vendor/bin/phpunit --coverage-text --only-summary-for-coverage-text | grep -c \"100.00%\" | grep -q \"^3$\" && exit 0 || exit 1",
+        "rector": "rector process --dry-run"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic Images",
+            "description": "Responsive picture elements for Statamic assets"
+        },
+        "laravel": {
+            "providers": [
+                "JustBetter\\StatamicImages\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
