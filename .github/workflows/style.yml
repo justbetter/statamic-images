@@ -6,23 +6,16 @@ jobs:
     style:
         runs-on: ubuntu-latest
 
-        strategy:
-            fail-fast: true
-            matrix:
-                php: ['8.4', '8.5']
-
-        name: Style - P${{ matrix.php }}
+        name: Style
 
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v4
-                with:
-                    path: statamic-images
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: ${{ matrix.php }}
+                    php-version: 8.5
                     extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
                     coverage: none
 

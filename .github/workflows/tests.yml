@@ -9,7 +9,7 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                php: ['8.4', '8.5']
+                php: [8.4, 8.5]
                 laravel: [13.*]
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }}
@@ -17,8 +17,6 @@ jobs:
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v4
-                with:
-                    path: statamic-images
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -34,6 +32,3 @@ jobs:
 
             -   name: Tests
                 run: composer test
-
-            -   name: Build Control Panel assets
-                run: npm run build
