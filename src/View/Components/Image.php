@@ -29,7 +29,9 @@ class Image extends Component
             ],
         ]);
 
-        return view('justbetter-glide-images::components.image', [
+        /** @var view-string $view */
+        $view = 'justbetter::components.image';
+        return view($view, [
             'image' => $this->image,
             'sizes' => $this->sizes,
             'picture' => $this->buildsPicture->build($this->image, $config),

@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace JustBetter\StatamicImages;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use JustBetter\StatamicImages\Actions\BuildPicture;
 use Override;
-use Statamic\Providers\AddonServiceProvider;
 
-class ServiceProvider extends AddonServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
-    #[Override]
     public function register(): void
     {
         $this
@@ -33,8 +32,7 @@ class ServiceProvider extends AddonServiceProvider
         return $this;
     }
 
-    #[Override]
-    public function bootAddon(): void
+    public function boot(): void
     {
         $this
             ->bootBladeComponents()
@@ -60,11 +58,11 @@ class ServiceProvider extends AddonServiceProvider
 
     protected function bootViews(): static
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'justbetter-glide-images');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'justbetter');
 
         $this->publishes([
-            __DIR__.'/../resources/views/emails' => resource_path('views/emails'),
-        ], 'justbetter-glide-images');
+            __DIR__.'/../resources/views' => resource_path('views'),
+        ], 'justbetter');
 
         return $this;
     }
