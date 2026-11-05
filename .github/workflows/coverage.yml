@@ -6,7 +6,12 @@ jobs:
     coverage:
         runs-on: ubuntu-latest
 
-        name: Coverage
+        strategy:
+            fail-fast: true
+            matrix:
+                laravel: [12.*, 13.*]
+
+        name: Coverage - L${{ matrix.laravel }}
 
         steps:
             -   name: Checkout code
@@ -20,7 +25,9 @@ jobs:
                     coverage: xdebug
 
             -   name: Install dependencies
-                run: composer install
+                run: |
+                    composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+                    composer install
 
             -   name: Coverage
                 run: composer coverage

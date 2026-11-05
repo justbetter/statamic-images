@@ -16,7 +16,7 @@ Responsive `<picture>` elements for Statamic assets, generated with Glide. Each 
 ## Requirements
 
 - PHP 8.4
-- Laravel 13
+- Laravel 12 or 13
 - Statamic 6
 
 ## Installation
