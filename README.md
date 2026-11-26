@@ -111,7 +111,32 @@ Several dimensions, for example a card that is 460px wide on small screens and 3
 />
 ```
 
-This produces the candidates `390w`, `780w`, `460w` and `920w`. All dimensions end up in the same `srcset` per format, and the browser picks a candidate by the width it needs. When dimensions have different aspect ratios, which crop is shown depends on that width, not on the breakpoint.
+All dimensions end up in the same `srcset` per format, and the browser picks a candidate by the width it needs. That only works when they share an aspect ratio, see below.
+
+### Different aspect ratios
+
+A browser picks from a `srcset` by width only. If the 390×475 and 460×350 crops above shared one `srcset`, a zoom level or device pixel ratio other than exactly 1x or 2x would make the browser need, for example, 429 pixels and pick the 460w landscape crop on desktop.
+
+Give such a dimension a `media` key. Dimensions with the same `media` share a `<source>` with that media query, and dimensions without `media` form the default `<source>`, which is always rendered last:
+
+```blade
+<x-justbetter::image
+    :image="$tile['image']"
+    :dimensions="[
+        ['w' => 390, 'h' => 475],
+        ['w' => 460, 'h' => 350, 'media' => '(max-width: 999px)'],
+    ]"
+    sizes="(max-width: 999px) 460px, 390px"
+/>
+```
+
+```html
+<source type="image/webp" media="(max-width: 999px)" srcset="… 460w, … 920w" sizes="…" width="460" height="350">
+<source type="image/webp" srcset="… 390w, … 780w" sizes="…" width="390" height="475">
+<img src="…" width="390" height="475" loading="lazy" />
+```
+
+The browser uses the first `<source>` whose media query matches. Media groups keep the order in which they first appear in `dimensions`, so list the most specific query first. Keep every dimension within one group at the same aspect ratio.
 
 ### Attributes
 
@@ -125,12 +150,12 @@ Any other attribute is passed to the `<img>`. `class` is added to the classes. O
 
 ```html
 <picture>
-    <source type="image/webp" srcset="/img/…/image.webp 460w, /img/…/image.webp 920w" sizes="…">
+    <source type="image/webp" srcset="/img/…/image.webp 460w, /img/…/image.webp 920w" sizes="…" width="460" height="350">
     <img src="/img/…/image.webp" alt="…" width="460" height="350" loading="lazy" class="…" />
 </picture>
 ```
 
-The fallback `<img>` uses the 1x candidate of the last dimension in the last configured format. Its `width` and `height` match that candidate. `alt` comes from the asset's `alt` field.
+Each `<source>` gets the `width` and `height` of its 1x candidate. The fallback `<img>` uses the 1x candidate of the last dimension without `media`, in the last configured format. Its `width` and `height` match that candidate. `alt` comes from the asset's `alt` field.
 
 ### SVG and GIF
 
