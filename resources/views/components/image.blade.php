@@ -7,12 +7,17 @@
             'height' => $image->height(),
         ]) }} />
     @else
-        @foreach($picture->sources as $format => $srcset)
-            <source
-                type="{{ $format }}"
-                srcset="{{ $srcset }}"
-                sizes="{{ $sizes }}"
-            >
+        @foreach($pictures as $item)
+            @foreach($item['picture']->sources as $format => $srcset)
+                <source
+                    type="{{ $format }}"
+                    @if($item['media']) media="{{ $item['media'] }}" @endif
+                    srcset="{{ $srcset }}"
+                    sizes="{{ $sizes }}"
+                    width="{{ $item['picture']->width }}"
+                    height="{{ $item['picture']->height }}"
+                >
+            @endforeach
         @endforeach
 
         <img {{ $attributes->merge([
